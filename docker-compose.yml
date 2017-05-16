@@ -1,0 +1,25 @@
+wekan:
+  image: wekanteam/wekan:meteor-1.4
+  links:
+    - wekandb
+  environment:
+    - MONGO_URL=mongodb://wekandb/wekan
+    - ROOT_URL=https://wekan.bewegung.jetzt
+    - MAIL_URL=smtp://SMTP_Injection@smtp.sparkpostmail.com:587/
+    - MAIL_FROM=wekan@bewegung.jetzt
+    # this is to configure letsencrypt to automatically issue and renew your hostname
+    - VIRTUAL_HOST=wekan.bewegung.jetzt
+    - LETSENCRYPT_HOST=wekan.bewegung.jetzt
+    - LETSENCRYPT_EMAIL=benjamin.kampmann@bewegung.jetzt
+  ports:
+    - 8081:80
+
+wekandb:
+   image: mongo
+   volumes:
+     - /home/wekan/data:/data/db
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
