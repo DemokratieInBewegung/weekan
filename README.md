@@ -1,0 +1,2 @@
+# weekan
+Our weekan setup
